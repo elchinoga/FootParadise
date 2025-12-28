@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: url('assets/papel-tapiz.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+}
+
+.back {
+  font-size: 20px;
+  background: none;
+  border: none;
+}
+
+main {
+  padding: 16px;
+}
+
+.card {
+  background: rgba(255,255,255,0.92);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.card.today {
+  border: 2px solid #4caf50;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 160px;
+  background: red;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+h2 {
+  margin: 6px 0;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: #1d9bf0;
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+}
