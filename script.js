@@ -29,7 +29,7 @@ updates.forEach(item => {
  card.innerHTML = `
   <div class="row">
     ${item.image
-      ? `<img src="${item.image}" class="thumb" />`
+      <img src="${item.image}" class="thumb" onclick="openImage('${item.image}')" />
       : `<div class="thumb placeholder"></div>`
     }
     <div class="content">
@@ -41,4 +41,19 @@ updates.forEach(item => {
   </div>
 `;
   feed.appendChild(card);
+});
+function openImage(src) {
+  const modal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modalImage");
+
+  modalImage.src = src;
+  modal.classList.remove("hidden");
+}
+
+document.addEventListener("click", (e) => {
+  const modal = document.getElementById("imageModal");
+  if (!modal.classList.contains("hidden") &&
+      (e.target.classList.contains("modal-backdrop"))) {
+    modal.classList.add("hidden");
+  }
 });
