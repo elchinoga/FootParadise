@@ -26,15 +26,19 @@ updates.forEach(item => {
   const card = document.createElement("div");
   card.className = "card" + (item.date === today ? " today" : "");
 
-  card.innerHTML = `
-  ${item.image 
-    ? `<img src="${item.image}" class="image-real" />`
-    : `<div class="image-placeholder"></div>`
-  }
-  <small>${item.date === today ? "TODAY · " : ""}${item.date}</small>
-  <h2>${item.title}</h2>
-  <p>${item.description || ""}</p>
-  <a class="button" href="${item.twitter}" target="_blank">Open on Twitter</a>
+ card.innerHTML = `
+  <div class="row">
+    ${item.image
+      ? `<img src="${item.image}" class="thumb" />`
+      : `<div class="thumb placeholder"></div>`
+    }
+    <div class="content">
+      <small>${item.date === today ? "TODAY · " : ""}${item.date}</small>
+      <h2>${item.title}</h2>
+      <p>${item.description || ""}</p>
+      <a class="button" href="${item.twitter}" target="_blank">Open on Twitter</a>
+    </div>
+  </div>
 `;
   feed.appendChild(card);
 });
