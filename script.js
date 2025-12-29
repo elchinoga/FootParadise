@@ -8,7 +8,7 @@ const updates = [
 - Bakugo and Deku
 - New comic starring Goku and Gohan.",
     image: "imagenes/dec_rewards.jpeg",
-    twitter: "https://twitter.com/footparadise/status/2005032550725800188"
+    twitter: "https://twitter.com/footparadise/status/2005427232270086412"
   },
   {
     date: "2025-01-15",
