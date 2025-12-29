@@ -3,7 +3,7 @@ const updates = [
     date: "2025-01-16",
     title: "Bakugo & Deku – Monthly Pack",
     description: "Bakugo and Deku are part of this month’s pack! You know where to see it 😊",
-    image: "imagenes/bakugo.jpg",
+    image: "imagenes/bakugo.jpeg",
     twitter: "https://twitter.com/footparadise/status/2005032550725800188"
   },
   {
