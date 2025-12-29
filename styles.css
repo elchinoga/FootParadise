@@ -249,6 +249,12 @@ main {
   background: rgba(255,0,0,0.2); /* 🔧 TEMPORAL para verla */
 }
 
+.design-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none; /* 🔑 CLAVE */
+}
 
 
 
