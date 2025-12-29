@@ -1,5 +1,5 @@
 /* =====================
-   RESET
+   RESET (GLOBAL, SEGURO)
 ===================== */
 * {
   box-sizing: border-box;
@@ -8,7 +8,7 @@
 }
 
 /* =====================
-   BODY / BACKGROUND
+   BODY / BACKGROUND (GLOBAL)
 ===================== */
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -20,10 +20,13 @@ body {
   min-height: 100vh;
 }
 
-/* =====================
-   PAGE
-===================== */
-.page {
+/* =========================================================
+   DOWNLOAD PAGE (AISLADO CON .download-page)
+   ⚠️ SOLO AFECTA download.html
+========================================================= */
+
+/* PAGE WRAPPER */
+.download-page .page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -31,32 +34,29 @@ body {
   padding: 40px 20px;
 }
 
-/* =====================
-   DESIGN IMAGE
-===================== */
-.design-wrapper {
+/* DESIGN IMAGE WRAPPER */
+.download-page .design-wrapper {
   position: relative;
   max-width: 1300px;
   width: 100%;
 }
 
-.design-image {
+/* MAIN DESIGN IMAGE */
+.download-page .design-image {
   width: 100%;
   height: auto;
   display: block;
   pointer-events: none; /* 🔑 NO bloquea clicks */
 }
 
-/* =====================
-   CLICKABLE AREA
-===================== */
-.download-hitbox {
+/* CLICKABLE DOWNLOAD AREA */
+.download-page .download-hitbox {
   position: absolute;
 
-  /* 🔴 DEBUG VISUAL */
+  /* 🔴 DEBUG VISUAL (BORRAR CUANDO TERMINE) */
   background: rgba(255, 0, 0, 0.35);
 
-  /* 📐 POSICIÓN INICIAL (AJUSTABLE) */
+  /* 📐 POSICIÓN (AJUSTABLE) */
   left: 55%;
   top: 75%;
   width: 280px;
@@ -66,16 +66,12 @@ body {
   cursor: pointer;
 }
 
-/* =====================
-   RESPONSIVE
-===================== */
+/* RESPONSIVE (DOWNLOAD ONLY) */
 @media (max-width: 768px) {
-  .download-hitbox {
+  .download-page .download-hitbox {
     left: 50%;
     top: 78%;
     width: 240px;
     height: 80px;
   }
 }
-
-
