@@ -1,261 +1,81 @@
-/* =========================
-   GLOBAL
-========================= */
+/* =====================
+   RESET
+===================== */
 * {
   box-sizing: border-box;
-}
-
-body {
   margin: 0;
+  padding: 0;
+}
+
+/* =====================
+   BODY / BACKGROUND
+===================== */
+body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: url('assets/papel-tapiz.png') no-repeat center center fixed;
+
+  /* PAPEL TAPIZ */
+  background: url("assets/papel-tapiz.png") no-repeat center center fixed;
   background-size: cover;
+
+  min-height: 100vh;
 }
 
-/* =========================
-   HEADER
-========================= */
-.topbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(6px);
-}
-
-.back {
-  font-size: 20px;
-  background: none;
-  border: none;
-  text-decoration: none;
-  color: black;
-}
-
-/* =========================
-   MAIN (UPDATES)
-========================= */
-main {
-  padding: 16px;
-}
-
-/* Card */
-.card {
-  background: rgba(255,255,255,0.92);
-  border-radius: 14px;
-  padding: 14px;
-  margin-bottom: 16px;
-}
-
-.card.today {
-  border: 2px solid #4caf50;
-}
-
-/* Row layout */
-.row {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-
-/* Thumbnail */
-.thumb {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 10px;
-  flex-shrink: 0;
-}
-
-.thumb.placeholder {
-  background: red;
-}
-
-/* Content */
-.content h2 {
-  font-size: 16px;
-  margin: 4px 0;
-}
-
-.content p {
-  font-size: 14px;
-  margin: 4px 0;
-}
-
-/* Button (Twitter / Links) */
-.button {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 10px 16px;
-  background: #1d9bf0;
-  color: white;
-  border-radius: 20px;
-  text-decoration: none;
-}
-
-/* =========================
-   IMAGE MODAL
-========================= */
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
+/* =====================
+   PAGE
+===================== */
+.page {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-}
-
-#modalImage {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 12px;
-  z-index: 1;
-}
-
-/* =========================
-   DOWNLOAD SCREEN
-========================= */
-.download-hero {
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #ff2b8a, #ffd400);
+  align-items: flex-start;
   padding: 40px 20px;
 }
 
-.download-layout {
-  max-width: 1300px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: nowrap; /* 🔑 CLAVE */
-}
-.download-left {
-  flex-shrink: 0;
-}
-.phone-img {
-  max-width: 320px;
-}
-
-.download-right {
-  max-width: 560px;
-}
-
-
-/* LEFT (PHONE) */
-.phone-img {
-  max-width: 360px;
-  width: 100%;
-}
-
-/* RIGHT (CONTENT) */
-.download-right {
-  max-width: 650px;
-  color: white;
-}
-
-/* Logos */
-.fp-logo {
-  max-width: 420px;
-  width: 100%;
-  margin-bottom: 8px;
-}
-
-.android-logo {
-  max-width: 300px;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-/* Text */
-.download-text {
-  font-size: 15px;
-  line-height: 1.6;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-.download-text.bold {
-  font-weight: 900;
-}
-
-/* Download button (image) */
-.download-btn-img {
-  margin-top: 18px;
-  max-width: 280px;
-  width: 100%;
-  cursor: pointer;
-}
-
-/* Version */
-.version-text {
-  margin-top: 10px;
-  font-size: 14px;
-  color: black;
-  font-weight: 600;
-}
-
-/* APK warning (optional) */
-.apk-warning {
-  display: block;
-  margin-top: 8px;
-  font-size: 13px;
-  color: black;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 900px) {
-  .download-layout {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-/* DESIGN IMAGE WITH CLICKABLE AREA */
+/* =====================
+   DESIGN IMAGE
+===================== */
 .design-wrapper {
   position: relative;
   max-width: 1300px;
-  margin: 0 auto 40px;
+  width: 100%;
 }
 
 .design-image {
   width: 100%;
   height: auto;
   display: block;
+  pointer-events: none; /* 🔑 NO bloquea clicks */
 }
 
-/* CLICKABLE ZONE (AJUSTABLE) */
-.design-download-link {
+/* =====================
+   CLICKABLE AREA
+===================== */
+.download-hitbox {
   position: absolute;
 
+  /* 🔴 DEBUG VISUAL */
+  background: rgba(255, 0, 0, 0.35);
+
+  /* 📐 POSICIÓN INICIAL (AJUSTABLE) */
   left: 55%;
-  top: 70%;
-  width: 260px;
-  height: 90px;
+  top: 72%;
+  width: 280px;
+  height: 95px;
 
+  z-index: 10;
   cursor: pointer;
-  z-index: 10;              /* 🔑 CLAVE */
-  background: rgba(255,0,0,0.2); /* 🔧 TEMPORAL para verla */
 }
 
-.design-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  pointer-events: none; /* 🔑 CLAVE */
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 768px) {
+  .download-hitbox {
+    left: 50%;
+    top: 78%;
+    width: 240px;
+    height: 80px;
+  }
 }
-
-
 
 
