@@ -245,7 +245,10 @@ main {
   height: 90px;
 
   cursor: pointer;
+  z-index: 10;              /* 🔑 CLAVE */
+  background: rgba(255,0,0,0.2); /* 🔧 TEMPORAL para verla */
 }
+
 
 
 
