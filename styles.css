@@ -239,7 +239,6 @@ main {
 .design-download-link {
   position: absolute;
 
-  /* 🔧 ESTOS VALORES SE AJUSTAN */
   left: 55%;
   top: 70%;
   width: 260px;
@@ -247,6 +246,7 @@ main {
 
   cursor: pointer;
 }
+
 
 
 
