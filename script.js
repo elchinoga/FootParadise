@@ -1,7 +1,7 @@
 const updates = [
   {
     date: "2025-12-29",
-    title: " December’s reward",
+    title: "December’s reward",
     description: `Last days to check out December’s reward, did you like this month’s characters? 🙌
 - Hinata and Nishinoya
 - Android 17
