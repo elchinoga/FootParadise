@@ -1,31 +1,128 @@
 /* =====================
-   RESET (GLOBAL, SEGURO)
+   BASE (SEGURO PARA TODAS)
 ===================== */
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-/* =====================
-   BODY / BACKGROUND (GLOBAL)
-===================== */
 body {
+  margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-
-  /* PAPEL TAPIZ */
-  background: url("assets/papel-tapiz.png") no-repeat center center fixed;
-  background-size: cover;
-
-  min-height: 100vh;
 }
 
 /* =========================================================
-   DOWNLOAD PAGE (AISLADO CON .download-page)
-   ⚠️ SOLO AFECTA download.html
+   NEWS PAGE (index.html)
 ========================================================= */
+.news-page {
+  background: url("assets/papel-tapiz.png") no-repeat center center fixed;
+  background-size: cover;
+}
 
-/* PAGE WRAPPER */
+/* Header */
+.news-page .topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+}
+
+/* Main */
+.news-page main {
+  padding: 16px;
+}
+
+/* Card */
+.news-page .card {
+  background: rgba(255,255,255,0.92);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.news-page .card.today {
+  border: 2px solid #4caf50;
+}
+
+/* Row layout */
+.news-page .row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* Thumbnail */
+.news-page .thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.news-page .thumb.placeholder {
+  background: red;
+}
+
+/* Content */
+.news-page .content h2 {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+.news-page .content p {
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+/* Button */
+.news-page .button {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: #1d9bf0;
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+/* Modal */
+.news-page .modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.news-page .modal.hidden {
+  display: none;
+}
+
+.news-page .modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+}
+
+.news-page #modalImage {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  z-index: 1;
+}
+
+/* =========================================================
+   DOWNLOAD PAGE (download.html)
+========================================================= */
+.download-page {
+  background: url("assets/papel-tapiz.png") no-repeat center center fixed;
+  background-size: cover;
+}
+
 .download-page .page {
   min-height: 100vh;
   display: flex;
@@ -34,29 +131,25 @@ body {
   padding: 40px 20px;
 }
 
-/* DESIGN IMAGE WRAPPER */
 .download-page .design-wrapper {
   position: relative;
   max-width: 1300px;
   width: 100%;
 }
 
-/* MAIN DESIGN IMAGE */
 .download-page .design-image {
   width: 100%;
   height: auto;
   display: block;
-  pointer-events: none; /* 🔑 NO bloquea clicks */
+  pointer-events: none;
 }
 
-/* CLICKABLE DOWNLOAD AREA */
 .download-page .download-hitbox {
   position: absolute;
 
-  /* 🔴 DEBUG VISUAL (BORRAR CUANDO TERMINE) */
+  /* 🔴 DEBUG (BORRAR LUEGO) */
   background: rgba(255, 0, 0, 0.35);
 
-  /* 📐 POSICIÓN (AJUSTABLE) */
   left: 55%;
   top: 77%;
   width: 280px;
@@ -66,7 +159,6 @@ body {
   cursor: pointer;
 }
 
-/* RESPONSIVE (DOWNLOAD ONLY) */
 @media (max-width: 768px) {
   .download-page .download-hitbox {
     left: 50%;
