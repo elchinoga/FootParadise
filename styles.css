@@ -222,5 +222,31 @@ main {
     text-align: center;
   }
 }
+/* DESIGN IMAGE WITH CLICKABLE AREA */
+.design-wrapper {
+  position: relative;
+  max-width: 1300px;
+  margin: 0 auto 40px;
+}
+
+.design-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* CLICKABLE ZONE (AJUSTABLE) */
+.design-download-link {
+  position: absolute;
+
+  /* 🔧 ESTOS VALORES SE AJUSTAN */
+  left: 55%;
+  top: 70%;
+  width: 260px;
+  height: 90px;
+
+  cursor: pointer;
+}
+
 
 
