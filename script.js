@@ -2,11 +2,12 @@ const updates = [
   {
     date: "2025-12-29",
     title: " December’s reward",
-    description: "Last days to check out December’s reward, did you like this month’s characters? 🙌
+    description: description: `Last days to check out December’s reward, did you like this month’s characters? 🙌
 - Hinata and Nishinoya
 - Android 17
 - Bakugo and Deku
-- New comic starring Goku and Gohan.",
+- New comic starring Goku and Gohan.`,
+,
     image: "imagenes/dec_rewards.jpeg",
     twitter: "https://twitter.com/footparadise/status/2005427232270086412"
   },
