@@ -11,10 +11,10 @@ const updates = [
     twitter: "https://twitter.com/footparadise/status/2005427232270086412"
   },
   {
-    date: "2025-01-15",
+    date: "2025-12-28",
     title: "New content available",
-    description: "Daily Footparadise post is live!",
-    twitter: "https://twitter.com/footparadise"
+    description: "Bakugo and Deku are part of this month’s pack! You know where to see it ",
+    twitter: "https://twitter.com/footparadise/status/2005032550725800188"
   }
 ];
 
