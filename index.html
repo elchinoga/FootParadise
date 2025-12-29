@@ -6,45 +6,22 @@
   <title>Updates · Footparadise</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
-  <div id="imageModal" class="modal hidden">
-  <div class="modal-backdrop"></div>
-  <img id="modalImage" />
-</div>
+
 <body>
+
   <header class="topbar">
     <h1>Updates · Footparadise</h1>
   </header>
 
   <main id="feed"></main>
 
+  <!-- Image modal -->
+  <div id="imageModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <img id="modalImage" />
+  </div>
+
   <script src="script.js"></script>
+
 </body>
 </html>
-/* Image modal */
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-}
-
-#modalImage {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 12px;
-  z-index: 1;
-}
-
