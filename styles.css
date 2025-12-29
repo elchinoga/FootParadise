@@ -62,3 +62,10 @@ h2 {
   border-radius: 20px;
   text-decoration: none;
 }
+.image-real {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  display: block;
+}
