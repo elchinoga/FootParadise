@@ -138,7 +138,9 @@ main {
   display: flex;
   align-items: center;
   gap: 40px;
+  flex-wrap: nowrap; /* 🔑 CLAVE */
 }
+
 
 /* LEFT (PHONE) */
 .phone-img {
