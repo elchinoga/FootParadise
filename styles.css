@@ -1,3 +1,10 @@
+/* =========================
+   GLOBAL
+========================= */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -5,7 +12,9 @@ body {
   background-size: cover;
 }
 
-/* Header */
+/* =========================
+   HEADER
+========================= */
 .topbar {
   display: flex;
   align-items: center;
@@ -19,9 +28,13 @@ body {
   font-size: 20px;
   background: none;
   border: none;
+  text-decoration: none;
+  color: black;
 }
 
-/* Main */
+/* =========================
+   MAIN (UPDATES)
+========================= */
 main {
   padding: 16px;
 }
@@ -69,49 +82,10 @@ main {
   margin: 4px 0;
 }
 
-/* Button */
+/* Button (Twitter / Links) */
 .button {
   display: inline-block;
   margin-top: 8px;
-  padding: 10px 16px;
-  background: #1d9bf0;
-  color: white;
-  border-radius: 20px;
-  text-decoration: none;
-}
-/* Image modal */
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-}
-
-#modalImage {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 12px;
-  z-index: 1;
-}
-.apk-warning {
-  display: block;
-  margin-top: 8px;
-  font-size: 13px;
-  color: black;
-}
-
+  padding: 10px 16p
 
 
