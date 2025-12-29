@@ -58,9 +58,9 @@ body {
 
   /* 📐 POSICIÓN (AJUSTABLE) */
   left: 55%;
-  top: 75%;
+  top: 77%;
   width: 280px;
-  height: 95px;
+  height: 80px;
 
   z-index: 10;
   cursor: pointer;
