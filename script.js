@@ -14,6 +14,7 @@ const updates = [
     date: "2025-12-28",
     title: "New content available",
     description: "Bakugo and Deku are part of this month’s pack! You know where to see it ",
+    image: "imagenes/bakugo.jpeg",
     twitter: "https://twitter.com/footparadise/status/2005032550725800188"
   }
 ];
