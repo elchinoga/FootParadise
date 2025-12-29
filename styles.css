@@ -140,6 +140,16 @@ main {
   gap: 40px;
   flex-wrap: nowrap; /* 🔑 CLAVE */
 }
+.download-left {
+  flex-shrink: 0;
+}
+.phone-img {
+  max-width: 320px;
+}
+
+.download-right {
+  max-width: 560px;
+}
 
 
 /* LEFT (PHONE) */
