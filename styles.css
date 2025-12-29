@@ -161,9 +161,9 @@ body {
 
 @media (max-width: 768px) {
   .download-page .download-hitbox {
-    left: 50%;
-    top: 78%;
-    width: 200px;
+    left: 52%;
+    top: 80%;
+    width: 180px;
     height: 60px;
   }
 }
