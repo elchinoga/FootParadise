@@ -27,12 +27,14 @@ updates.forEach(item => {
   card.className = "card" + (item.date === today ? " today" : "");
 
   card.innerHTML = `
-    <div class="image-placeholder"></div>
-    <small>${item.date === today ? "TODAY · " : ""}${item.date}</small>
-    <h2>${item.title}</h2>
-    <p>${item.description || ""}</p>
-    <a class="button" href="${item.twitter}" target="_blank">Open on Twitter</a>
-  `;
-
+  ${item.image 
+    ? `<img src="${item.image}" class="image-real" />`
+    : `<div class="image-placeholder"></div>`
+  }
+  <small>${item.date === today ? "TODAY · " : ""}${item.date}</small>
+  <h2>${item.title}</h2>
+  <p>${item.description || ""}</p>
+  <a class="button" href="${item.twitter}" target="_blank">Open on Twitter</a>
+`;
   feed.appendChild(card);
 });
