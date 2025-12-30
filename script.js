@@ -1,4 +1,12 @@
 const updates = [
+   {
+    date: "2025-12-30",
+    title: "Happy New Year",
+    description: `Tanjiro and Inosuke say goodbye to the year with Tengen Uzui!
+Our last illustration of the year, thank you all for the amazing support! More coming next year! 🥂`,
+    image: "imagenes/newyear.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2006119167112470598"
+  },
   {
     date: "2025-12-29",
     title: "December’s reward",
