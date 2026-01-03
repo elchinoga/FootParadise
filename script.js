@@ -1,7 +1,7 @@
 const updates = [
     {
     date: "2026-1-3",
-    title: "New Comic: Gohan´2 Wish",
+    title: "New Comic: Gohan´s Wish",
     description: `Our new story is out now, Gohan’s Wish! 
 Gohan reunites with Goku, and the two share a great moment, playing with their feet 😉`,
     image: "imagenes/gohan_wish.jfif",
