@@ -23,6 +23,40 @@
   </div>
 
   <script src="script.js"></script>
+<script>
+function isWebView() {
+  const ua = navigator.userAgent || '';
+  return (
+    /wv/.test(ua) ||
+    window.AndroidInterface !== undefined ||
+    (window.webkit && window.webkit.messageHandlers)
+  );
+}
+
+document.querySelectorAll('a[href^="http"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+
+    if (!isWebView()) return;
+
+    e.preventDefault();
+    const url = link.href;
+
+    // ANDROID
+    if (window.AndroidInterface?.openExternal) {
+      window.AndroidInterface.openExternal(url);
+      return;
+    }
+
+    // iOS
+    if (window.webkit?.messageHandlers?.openExternal) {
+      window.webkit.messageHandlers.openExternal.postMessage(url);
+      return;
+    }
+
+    console.warn("WebView detectado pero sin bridge nativo");
+  });
+});
+</script>
 
 </body>
 </html>
