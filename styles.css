@@ -171,9 +171,9 @@ body {
    APP VERSION PAGE (app-version.html)
 ========================================================= */
 .app-version-page {
+  min-height: 100vh;
   background: url("assets/papel-tapiz.png") no-repeat center center fixed;
   background-size: cover;
-  min-height: 100vh;
 }
 
 /* Header */
