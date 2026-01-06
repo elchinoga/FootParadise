@@ -1,85 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>App Version</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+.app-version-page {
+  background-color: transparent;
+}
 
-  <!-- CSS principal -->
-  <link rel="stylesheet" href="style.css">
-</head>
+.app-version-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url("assets/papel-tapiz.png") no-repeat center center;
+  background-size: cover;
+}
 
-<body class="app-version-page">
-
-  <!-- HEADER -->
-  <header class="topbar">
-    <button class="back" onclick="history.back()">←</button>
-    <h1>App Version</h1>
-  </header>
-
-  <!-- MAIN CONTENT -->
-  <main class="version-container">
-
-    <!-- ================= VERSION 1 ================= -->
-    <section class="version-card">
-      <h2>Version 1.0.0</h2>
-      <p class="version-date">Released: January 2026</p>
-
-      <div class="app-section">
-        <h3>🔐 Login</h3>
-        <p>
-          Secure anonymous and Google login to keep your progress synced
-          across devices.
-        </p>
-        <img src="assets/screenshots/v1/login.png" alt="Login screen">
-      </div>
-
-      <div class="app-section">
-        <h3>🏠 Home</h3>
-        <p>
-          Main hub with quick access to comics, news, and Patreon-exclusive
-          content.
-        </p>
-        <img src="assets/screenshots/v1/home.png" alt="Home screen">
-      </div>
-
-      <div class="app-section">
-        <h3>📖 Comic Reader</h3>
-        <p>
-          Vertical comic reader optimized for mobile devices, with smooth
-          scrolling and fast page loading.
-        </p>
-        <img src="assets/screenshots/v1/reader.png" alt="Comic reader">
-      </div>
-
-      <div class="app-section">
-        <h3>⚙️ Settings</h3>
-        <p>
-          Manage backups, Patreon connection, and account options.
-        </p>
-        <img src="assets/screenshots/v1/settings.png" alt="Settings screen">
-      </div>
-    </section>
-    <!-- ================= END VERSION ================= -->
-
-    <!-- ================= VERSION 2 (EJEMPLO FUTURO) ================= -->
-    <!--
-    <section class="version-card">
-      <h2>Version 1.1.0</h2>
-      <p class="version-date">Released: February 2026</p>
-
-      <div class="app-section">
-        <h3>✨ New Reader UI</h3>
-        <p>
-          Improved reader with better performance and smoother animations.
-        </p>
-        <img src="assets/screenshots/v2/reader.png">
-      </div>
-    </section>
-    -->
-    <!-- ================= END VERSION ================= -->
-
-  </main>
-
-</body>
-</html>
