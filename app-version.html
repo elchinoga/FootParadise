@@ -1,13 +1,80 @@
-.app-version-page {
-  background-color: transparent;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>App Version</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.app-version-page::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: url("assets/papel-tapiz.png") no-repeat center center;
-  background-size: cover;
-}
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="app-version-page">
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <button class="back" onclick="history.back()">←</button>
+    <h1>App Version</h1>
+  </header>
+
+  <!-- MAIN -->
+  <main class="version-container">
+
+    <!-- ===== VERSION 1 ===== -->
+    <section class="version-card">
+      <h2>Version 1.0.0</h2>
+      <p class="version-date">Released: January 2026</p>
+
+      <div class="app-section">
+        <h3>🔐 Login</h3>
+        <p>
+          Anonymous and Google login to keep your progress synchronized
+          across devices.
+        </p>
+        <img src="assets/screenshots/v1/login.png" alt="Login screen">
+      </div>
+
+      <div class="app-section">
+        <h3>🏠 Home</h3>
+        <p>
+          Central hub with access to comics, news, and Patreon-exclusive content.
+        </p>
+        <img src="assets/screenshots/v1/home.png" alt="Home screen">
+      </div>
+
+      <div class="app-section">
+        <h3>📖 Comic Reader</h3>
+        <p>
+          Vertical reader optimized for mobile screens with smooth scrolling.
+        </p>
+        <img src="assets/screenshots/v1/reader.png" alt="Comic reader">
+      </div>
+
+      <div class="app-section">
+        <h3>⚙️ Settings</h3>
+        <p>
+          Backup, Patreon connection and account management.
+        </p>
+        <img src="assets/screenshots/v1/settings.png" alt="Settings">
+      </div>
+    </section>
+
+    <!-- ===== FUTURE VERSION TEMPLATE ===== -->
+    <!--
+    <section class="version-card">
+      <h2>Version 1.1.0</h2>
+      <p class="version-date">Released: February 2026</p>
+
+      <div class="app-section">
+        <h3>✨ New Features</h3>
+        <p>Description of the new features.</p>
+        <img src="assets/screenshots/v2/feature.png">
+      </div>
+    </section>
+    -->
+
+  </main>
+
+</body>
+</html>
 
