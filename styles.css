@@ -1,6 +1,7 @@
 html, body {
   min-height: 100%;
 }
+
 /* =====================
    BASE (SEGURO PARA TODAS)
 ===================== */
@@ -173,9 +174,18 @@ body {
 /* =========================================================
    APP VERSION PAGE (app-version.html)
 ========================================================= */
+
 .app-version-page {
-  min-height: 100vh;
-  background: url("assets/papel-tapiz.png") no-repeat center center fixed;
+  background: transparent;
+}
+
+/* Fondo forzado (papel tapiz) */
+.app-version-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url("assets/papel-tapiz.png") no-repeat center center;
   background-size: cover;
 }
 
@@ -205,18 +215,13 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
-/* Titles */
-.app-version-page .version-card h2 {
-  margin: 0 0 4px 0;
-}
-
+/* Text */
 .app-version-page .version-date {
   font-size: 13px;
   opacity: 0.7;
   margin-bottom: 16px;
 }
 
-/* App section */
 .app-version-page .app-section {
   margin-bottom: 22px;
 }
@@ -230,7 +235,7 @@ body {
   font-size: 14px;
 }
 
-/* Screenshots */
+/* Images */
 .app-version-page .app-section img {
   width: 100%;
   max-width: 420px;
