@@ -1,5 +1,20 @@
 const updates = [
     {
+    date: "2026-1-4",
+    title: "First comm of the year 🎉",
+    description: `Pawbert Lynxley from Zootopia about to fall, what a great view!`,
+    image: "imagenes/zootopia.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2007943360083100120"
+  },
+     {
+    date: "2026-1-3",
+    title: "How is everyone doing?",
+    description: `Remember, you can still read our latest comic 😊
+What could Goku and Gohan have been up to? A new story is coming this month!`,
+    image: "imagenes/comic.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2007567500716978372"
+  },
+    {
     date: "2026-1-3",
     title: "New Comic: Gohan´s Wish",
     description: `Our new story is out now, Gohan’s Wish! 
