@@ -1,4 +1,15 @@
 const updates = [
+     {
+    date: "2026-1-7",
+    title: "Vote to choose the characters for the next story!",
+    description: `We have so many ideas in mind 😁
+- Asta and Yami (Black Clover)
+- Killua and Gon (Hunter x Hunter)
+- Prof Cerise with Ash and Goh (Pokemon Journeys)
+- Tetsuru with Hinata and Kageyama (Haikyuu)`,
+    image: "imagenes/polltw.jpg",
+    twitter: "https://x.com/FootParadiseArt/status/2009017540417343733"
+  },
     {
     date: "2026-1-4",
     title: "First comm of the year 🎉",
