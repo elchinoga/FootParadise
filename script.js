@@ -1,5 +1,13 @@
 const updates = [
       {
+    date: "2026-1-10",
+    title: "Natsu and Gray",
+    description: `the first characters of the year! 
+Join us to see more ✨ `,
+    image: "imagenes/G-VRXfuWUAELUQF.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2010102452809617882"
+  },
+      {
     date: "2026-1-9",
     title: "You already know where to find more.",
     description: `Natsu and Gray are looking for some special treatment, you can start with their feet 😉 `,
