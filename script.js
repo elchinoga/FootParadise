@@ -1,4 +1,15 @@
 const updates = [
+       {
+    date: "2026-1-14",
+    title: "Character of the month",
+    description: `You can now join in and vote for January's next character! Do you like any of these? 😊
+- Akitaru Obi (Fire Force)
+- Shoto Todoroki
+- Deadpool
+- Vegeta (Saiyan arc)`,
+    image: "imagenes/G-ksH40XAAA3Hif.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2011187728453357698"
+  },
       {
     date: "2026-1-10",
     title: "Natsu and Gray",
