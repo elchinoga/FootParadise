@@ -1,5 +1,5 @@
 {
-  "latestVersion": "2.0.2",
+  "latestVersion": "1.0.1",
   "releaseDate": "2025-01-15",
   "showNotification": true,
   "message": {
@@ -7,9 +7,10 @@
     "es": "¡Nueva actualización disponible! Ve a la sección Actualizaciones para descargar el último APK."
   },
   "changelog": {
-    "en": "Bug fixes and performance improvements",
-    "es": "Corrección de errores y mejoras de rendimiento"
+    "en": "New comic, Bug fixes and performance improvements",
+    "es": "Nuevo Comic, Corrección de errores y mejoras de rendimiento"
   }
 
 }
+
 
