@@ -1,4 +1,12 @@
 const updates = [
+        {
+    date: "2026-1-15",
+    title: "New comic, Hunter x Hunter",
+    description: `Hi everyone, Gon and Killua's Secret Game is our new story! 
+What will these characters do when Leorio isn't around? Coming this month! ✨`,
+    image: "imagenes/G-vBVkSbQAABBGg.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2011914870766071819"
+  },
        {
     date: "2026-1-14",
     title: "Character of the month",
