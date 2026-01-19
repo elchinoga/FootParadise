@@ -1,4 +1,12 @@
 const updates = [
+         {
+    date: "2026-1-18",
+    title: "Happy Sunday!",
+    description: `King from One Piece is an extra character this month.
+Thank you to everyone who is joining us this month 😊`,
+    image: "imagenes/G--6q2xXQAAMXuW.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2013033810699436417"
+  },
         {
     date: "2026-1-15",
     title: "New comic, Hunter x Hunter",
