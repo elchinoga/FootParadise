@@ -1,4 +1,11 @@
 const updates = [
+            {
+    date: "2026-1-19",
+    title: "Linert wip",
+    description: `Guess who I'm working on. This beautiful Fire Force character 🔥`,
+    image: "imagenes/G_Dr8RnXYAAdpvk.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2013369415924850873"
+  },
          {
     date: "2026-1-18",
     title: "Happy Sunday!",
