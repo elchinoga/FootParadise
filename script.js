@@ -1,4 +1,12 @@
 const updates = [
+                   {
+    date: "2026-1-22",
+    title: "New Story preview",
+    description: `Hi everyone! Our new story, Gon and Killua's secret game, is out now 😎
+You know what to do if you want to see what these two get up to when Leorio isn’t around.`,
+    image: "imagenes/G_TBBgZWoAEkrQE.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2014448719828066788"
+  },
             {
     date: "2026-1-19",
     title: "Linert wip",
