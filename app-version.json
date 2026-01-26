@@ -1,7 +1,7 @@
 {
   "latestVersion": "1.0.1",
   "releaseDate": "2025-01-15",
-  "showNotification": true,
+  "showNotification": false,
   "message": {
     "en": "New update available! Go to Updates section to download the latest APK.",
     "es": "¡Nueva actualización disponible! Ve a la sección Actualizaciones para descargar el último APK."
@@ -12,5 +12,6 @@
   }
 
 }
+
 
 
