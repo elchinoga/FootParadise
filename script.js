@@ -1,4 +1,11 @@
 const updates = [
+       {
+    date: "2026-1-27",
+    title: "Bleach!",
+    description: `Would you accept a fight against Grimmjow? Just make sure you don’t get distracted by his feet 🤭`,
+    image: "imagenes/G_nnHFJWYAAMp3P.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2015896737135591766"
+  },
                    {
     date: "2026-1-22",
     title: "New Story preview",
