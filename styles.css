@@ -242,3 +242,13 @@ body {
   border-radius: 14px;
   display: block;
 }
+/* === EMBED MODE - Hide navigation when accessed from app === */
+body.embed-mode .navbar,
+body.embed-mode .age-gate,
+body.embed-mode nav.navbar {
+    display: none !important;
+}
+
+body.embed-mode main#main-content {
+    padding-top: 20px !important;
+}
