@@ -1,0 +1,20 @@
+{
+  "updates": [
+    {
+      "id": 1,
+      "date": "2025-01-30",
+      "title": "January's rewards",
+      "description": "You can still check out January's rewards...",
+      "image": "imagenes/G_8QoNmXEAAiUrj.jfif",
+      "twitter": "https://x.com/FootParadiseArt/status/..."
+    },
+    {
+      "id": 2,
+      "date": "2025-01-27",
+      "title": "Bleach!",
+      "description": "Would you accept a fight against Grimmjow?",
+      "image": "imagenes/G_nnHFJWYAAMp3P.jfif",
+      "twitter": "https://x.com/FootParadiseArt/status/..."
+    }
+  ]
+}
