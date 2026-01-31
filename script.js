@@ -1,4 +1,16 @@
 const updates = [
+           {
+    date: "2026-1-30",
+    title: "January’s rewards",
+    description: `You can still check out January’s rewards, which one was your favorite? 
+🔸 Natsu and Gray
+🔸 Nanase, Tachibana and Yamazaki
+🔸 Akitaru Obi and Shinra
+🔸 Gon and Killua's secret game (Master tier comic)
+See you in February with more content! 😊`,
+    image: "imagenes/G_8QoNmXEAAiUrj.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2017350953410744662"
+  },
        {
     date: "2026-1-27",
     title: "Bleach!",
