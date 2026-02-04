@@ -1,4 +1,11 @@
 const updates = [
+             {
+    date: "2026-2-2",
+    title: "Toji",
+    description: `It's been a while since we drew this character 😉,
+    image: "imagenes/HALqvfPW4AAnqxI.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2018433740020543526"
+  },
            {
     date: "2026-1-30",
     title: "January’s rewards",
