@@ -1,4 +1,12 @@
 const updates = [
+      {
+    date: "2026-2-3",
+    title: "Comic Hunter x Hunter",
+    description: `Don’t forget you can still read the January comic while working on the new story!
+Gon and Killua will appreciate it 😉,
+    image: "imagenes/HARXztrXAAAVaKy.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2018835399381295138"
+  },
              {
     date: "2026-2-2",
     title: "Toji",
