@@ -1,4 +1,12 @@
 const updates = [
+       {
+    date: "2026-2-4",
+    title: "Jujutsu Kaisen",
+    description: `Naoya is still obsessed with Toji, he's at his feet 😋
+I hope you like it!`,
+    image: "imagenes/HAWDIjCWoAAMtB9.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2019164349772738677"
+  },
       {
     date: "2026-2-3",
     title: "Comic Hunter x Hunter",
