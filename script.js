@@ -1,4 +1,20 @@
 const updates = [
+            {
+    date: "2026-2-7",
+    title: "This week's character",
+    description: `I hope you like what we're drawing.
+I wonder who's tickling him 🤔`,
+    image: "imagenes/HAvzt_vbsAAf7ke.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2020976940937773218"
+  },
+           {
+    date: "2026-2-7",
+    title: "Deadpool",
+    description: `Deadpool is this month’s extra character! 
+What do you think he’d do if you got close to his bare feet? 👀`,
+    image: "imagenes/HAlZjndXQAAusPG.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2020244479744315834"
+  },
        {
     date: "2026-2-4",
     title: "Jujutsu Kaisen",
