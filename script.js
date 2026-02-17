@@ -1,5 +1,31 @@
 const updates = [
             {
+    date: "2026-2-14",
+    title: "Yugi",
+    description: `It's been a while since we drew a Naruto character, so stay tuned! 😁`,
+    image: "HBTyDmFWQAAag8y.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2022781199169499352"
+  },
+                    {
+    date: "2026-2-14",
+    title: "Yugi",
+    description: `Yugi is your Valentine’s date! What are you planning to do all night? 🤭
+Happy Valentine’s Day to everyone! 💝`,
+    image: "imagenes/HBJcnfIbAAEffQy.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2023508406079025525"
+  },
+              {
+    date: "2026-2-12",
+    title: "Poll",
+    description: `Hi everyone! U can now vote on pqtreon for February's next character. Who will be the next one to show their feet? 😁
+- Krillin (DBZ)
+- Shikamaru (Naruto)
+- Kraft (Sousou no Frieren)
+- Franky (One Piece)`,
+    image: "imagenes/HA_d0cNXsAANOp6.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2022078654055088174"
+  },
+            {
     date: "2026-2-11",
     title: "Dandadan",
     description: `Here comes Evil Eye’s powerful kick. 
