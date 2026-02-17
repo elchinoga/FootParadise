@@ -1,7 +1,7 @@
 const updates = [
             {
-    date: "2026-2-14",
-    title: "Yugi",
+    date: "2026-2-17",
+    title: "Shikamaru",
     description: `It's been a while since we drew a Naruto character, so stay tuned! 😁`,
     image: "HBTyDmFWQAAag8y.jfif",
     twitter: "https://x.com/FootParadiseArt/status/2022781199169499352"
