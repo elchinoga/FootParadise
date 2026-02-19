@@ -1,4 +1,12 @@
 const updates = [
+              {
+    date: "2026-2-17",
+    title: "Shikamaru",
+    description: `Shikamaru’s got a little private training session planned for you, but he’s being pretty mysterious about the details 😈
+I hope you like it!`,
+    image: "HBY7NckaUAA0vdU.jfif",
+    twitter: "https://x.com/FootParadiseArt/status/2023870998874124395"
+  },
             {
     date: "2026-2-17",
     title: "Shikamaru",
