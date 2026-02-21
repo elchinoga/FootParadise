@@ -1,4 +1,12 @@
 const updates = [
+        {
+    date: "2026-2-10",
+    title: "New update",
+    description: `This section will no longer receive updates in this version of the app. Update it to stay up to date.
+    New APK available on February 25, 2026`,
+    image: "",
+    twitter: "https://www.footparadiseart.com/app/"
+  },
               {
     date: "2026-2-17",
     title: "Shikamaru",
