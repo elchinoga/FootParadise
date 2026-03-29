@@ -1,0 +1,32 @@
+name: Actualizar noticias desde Twitter
+
+on:
+  schedule:
+    - cron: '0 22 * * *'   # 22:00 UTC = 19:00 Argentina (UTC-3)
+  workflow_dispatch:         # también lo podés correr a mano
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # necesario para hacer el commit
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Correr script
+        run: python scripts/update_news.py
+
+      - name: Commit y push (si hay cambios)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add updates.json imagenes/
+          git diff --cached --quiet || git commit -m "chore: actualiza noticias $(date +'%Y-%m-%d')"
+          git push
