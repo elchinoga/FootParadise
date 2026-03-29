@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-RSS_URL      = os.environ["RSS_URL"]
+RSS_URL = os.environ["RSS_URL"]
 UPDATES_FILE = Path("updates.json")
 IMAGES_DIR   = Path("imagenes")
 TWITTER_HANDLE = "FootParadiseArt"
