@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-RSS_URL     = os.environ["RSS_URL"]
+RSS_URL      = os.environ["RSS_URL"]
 UPDATES_FILE = Path("updates.json")
 IMAGES_DIR   = Path("imagenes")
 TWITTER_HANDLE = "FootParadiseArt"
@@ -14,27 +14,33 @@ TWITTER_HANDLE = "FootParadiseArt"
 def fetch_url(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=20) as r:
-        return r.read()
+        raw = r.read()
+    raw = raw.decode("utf-8", errors="replace")
+    raw = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', raw)
+    return raw.encode("utf-8")
 
 def parse_rss(xml_bytes):
-    root = ET.fromstring(xml_bytes)
+    try:
+        root = ET.fromstring(xml_bytes)
+    except ET.ParseError:
+        text = xml_bytes.decode("utf-8", errors="replace")
+        text = re.sub(r'&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[\da-fA-F]+;)(\w+);', r'&amp;\1;', text)
+        root = ET.fromstring(text.encode("utf-8"))
+
     ns = {"media": "http://search.yahoo.com/mrss/"}
     items = []
 
     for item in root.findall(".//item"):
-        # ID desde la URL del tweet
         link = item.findtext("link") or ""
         id_match = re.search(r'/status/(\d+)', link)
         if not id_match:
             continue
         tweet_id = id_match.group(1)
 
-        # Texto del post (description viene con HTML a veces)
         description = item.findtext("description") or ""
         text = re.sub(r'<[^>]+>', '', description).strip()
         text = re.sub(r'\s+', ' ', text)
 
-        # Imagen (media:content o enclosure)
         img_url = ""
         media = item.find("media:content", ns)
         if media is not None:
@@ -44,7 +50,6 @@ def parse_rss(xml_bytes):
             if enclosure is not None:
                 img_url = enclosure.get("url", "")
 
-        # Saltar retweets
         if text.startswith("RT @"):
             continue
 
