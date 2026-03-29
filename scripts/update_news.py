@@ -1,70 +1,56 @@
 import json
+import os
 import re
+import urllib.request
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-import urllib.request
 
-TWITTER_HANDLE = "FootParadiseArt"
-NITTER_INSTANCES = [
-    "https://xcancel.com",
-    "https://nitter.privacyredirect.com",
-    "https://lightbrd.com",
-    "https://nitter.poast.org",
-]
+RSS_URL     = os.environ["RSS_URL"]
 UPDATES_FILE = Path("updates.json")
 IMAGES_DIR   = Path("imagenes")
+TWITTER_HANDLE = "FootParadiseArt"
 
 def fetch_url(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=15) as r:
-        return r.read().decode("utf-8", errors="replace")
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return r.read()
 
-def try_nitter():
-    for base in NITTER_INSTANCES:
-        url = f"{base}/{TWITTER_HANDLE}"
-        try:
-            print(f"Probando {url}...")
-            html = fetch_url(url)
-            if TWITTER_HANDLE.lower() in html.lower():
-                print(f"  ✓ OK")
-                return html, base
-        except Exception as e:
-            print(f"  ✗ {e}")
-    raise RuntimeError("Ninguna instancia de Nitter disponible")
+def parse_rss(xml_bytes):
+    root = ET.fromstring(xml_bytes)
+    ns = {"media": "http://search.yahoo.com/mrss/"}
+    items = []
 
-def parse_tweets(html, nitter_base):
-    tweets = []
-    blocks = re.split(r'<div class="timeline-item\s*">', html)[1:]
-
-    for block in blocks:
-        if 'class="retweet-header"' in block or 'Retweeted' in block:
-            continue
-
-        id_match = re.search(r'/status/(\d+)', block)
+    for item in root.findall(".//item"):
+        # ID desde la URL del tweet
+        link = item.findtext("link") or ""
+        id_match = re.search(r'/status/(\d+)', link)
         if not id_match:
             continue
         tweet_id = id_match.group(1)
 
-        text_match = re.search(
-            r'<div class="tweet-content[^"]*"[^>]*>(.*?)</div>', block, re.DOTALL
-        )
-        text = ""
-        if text_match:
-            text = re.sub(r'<[^>]+>', '', text_match.group(1)).strip()
-            text = re.sub(r'\s+', ' ', text)
+        # Texto del post (description viene con HTML a veces)
+        description = item.findtext("description") or ""
+        text = re.sub(r'<[^>]+>', '', description).strip()
+        text = re.sub(r'\s+', ' ', text)
 
-        img_match = re.search(r'<img[^>]+src="([^"]+/pic/[^"]+)"', block) \
-                 or re.search(r'<a[^>]+href="(/pic/[^"]+)"', block)
+        # Imagen (media:content o enclosure)
         img_url = ""
-        if img_match:
-            raw = img_match.group(1)
-            if raw.startswith("/"):
-                raw = nitter_base + raw
-            img_url = raw
+        media = item.find("media:content", ns)
+        if media is not None:
+            img_url = media.get("url", "")
+        if not img_url:
+            enclosure = item.find("enclosure")
+            if enclosure is not None:
+                img_url = enclosure.get("url", "")
 
-        tweets.append({"id": tweet_id, "text": text, "img_url": img_url})
+        # Saltar retweets
+        if text.startswith("RT @"):
+            continue
 
-    return tweets
+        items.append({"id": tweet_id, "text": text, "img_url": img_url, "link": link})
+
+    return items
 
 def load_updates():
     if UPDATES_FILE.exists():
@@ -102,36 +88,35 @@ def download_image(img_url, tweet_id):
         return ""
 
 def main():
-    html, nitter_base = try_nitter()
-    tweets = parse_tweets(html, nitter_base)
-    print(f"Tweets encontrados: {len(tweets)}")
+    print("Obteniendo RSS...")
+    xml_bytes = fetch_url(RSS_URL)
+    items = parse_rss(xml_bytes)
+    print(f"Posts encontrados: {len(items)}")
 
     data = load_updates()
     known = existing_ids(data)
     max_id = max((u["id"] for u in data["updates"]), default=0)
 
     added = 0
-    for tweet in tweets:
-        if tweet["id"] in known:
+    for item in items:
+        if item["id"] in known:
             continue
 
         max_id += 1
         today = datetime.now(timezone(timedelta(hours=-3))).strftime("%Y-%m-%d")
-        twitter_url = f"https://x.com/{TWITTER_HANDLE}/status/{tweet['id']}"
-        image_path = download_image(tweet["img_url"], tweet["id"])
+        image_path = download_image(item["img_url"], item["id"])
 
-        # Orden exacto de claves como en el JSON original
         entry = {
             "id": max_id,
             "date": today,
-            "title": tweet["text"][:60] + ("..." if len(tweet["text"]) > 60 else ""),
-            "description": tweet["text"],
+            "title": item["text"][:60] + ("..." if len(item["text"]) > 60 else ""),
+            "description": item["text"],
             "image": image_path,
-            "twitter": twitter_url,
+            "twitter": item["link"],
         }
 
         data["updates"].insert(0, entry)
-        print(f"  + {tweet['id']}: {entry['title']}")
+        print(f"  + {item['id']}: {entry['title']}")
         added += 1
 
     if added == 0:
