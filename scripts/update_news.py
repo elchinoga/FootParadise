@@ -20,15 +20,26 @@ def fetch_url(url):
     return raw.encode("utf-8")
 
 def parse_rss(xml_bytes):
+    text = xml_bytes.decode("utf-8", errors="replace")
+    # Mostrar contexto alrededor del error
+    col = 78668
+    print("CONTEXTO:", repr(text[col-50:col+50]))
+    
+    # Limpiar todo lo que no sea XML válido
+    text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x84\x86-\x9f]', '', text)
+    text = re.sub(r'&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[\da-fA-F]+;)', '&amp;', text)
+    
     try:
-        root = ET.fromstring(xml_bytes)
-    except ET.ParseError:
-        text = xml_bytes.decode("utf-8", errors="replace")
-        text = re.sub(r'&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[\da-fA-F]+;)(\w+);', r'&amp;\1;', text)
         root = ET.fromstring(text.encode("utf-8"))
+    except ET.ParseError as e:
+        print("Aún falla:", e)
+        # Guardar el XML para inspección
+        Path("debug_rss.xml").write_text(text[:5000], encoding="utf-8")
+        raise
 
     ns = {"media": "http://search.yahoo.com/mrss/"}
     items = []
+    # ... resto igual
 
     for item in root.findall(".//item"):
         link = item.findtext("link") or ""
