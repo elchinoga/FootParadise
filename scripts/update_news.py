@@ -6,9 +6,10 @@ import urllib.request
 
 TWITTER_HANDLE = "FootParadiseArt"
 NITTER_INSTANCES = [
-    "https://nitter.privacydev.net",
+    "https://xcancel.com",
+    "https://nitter.privacyredirect.com",
+    "https://lightbrd.com",
     "https://nitter.poast.org",
-    "https://nitter.lucabased.xyz",
 ]
 UPDATES_FILE = Path("updates.json")
 IMAGES_DIR   = Path("imagenes")
