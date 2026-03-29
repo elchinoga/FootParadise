@@ -21,6 +21,8 @@ jobs:
           python-version: '3.12'
 
       - name: Correr script
+        env:
+          RSS_URL: ${{ secrets.RSS_URL }}
         run: python scripts/update_news.py
 
       - name: Commit y push (si hay cambios)
