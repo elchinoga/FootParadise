@@ -20,45 +20,51 @@ def fetch_url(url):
     return raw.encode("utf-8")
 
 def parse_rss(xml_bytes):
-    try:
-        root = ET.fromstring(xml_bytes)
-    except ET.ParseError:
-        text = xml_bytes.decode("utf-8", errors="replace")
-        text = re.sub(r'&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[\da-fA-F]+;)', '&amp;', text)
-        root = ET.fromstring(text.encode("utf-8"))
+      from urllib.parse import unquote
+      try:
+          root = ET.fromstring(xml_bytes)
+      except ET.ParseError:
+          text = xml_bytes.decode("utf-8", errors="replace")
+          text = re.sub(r'&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[\da-fA-F]+;)', '&amp;', text)
+          root = ET.fromstring(text.encode("utf-8"))
 
-    ns = {"media": "http://search.yahoo.com/mrss/"}
-    items = []
+      items = []
 
-    for item in root.findall(".//item"):
-        link = item.findtext("link") or ""
-        id_match = re.search(r'/status/(\d+)', link)
-        if not id_match:
-            continue
-        tweet_id = id_match.group(1)
+      for item in root.findall(".//item"):
+          link = item.findtext("link") or ""
 
-        description = item.findtext("description") or ""
-        text = re.sub(r'<[^>]+>', '', description).strip()
-        text = re.sub(r'\s+', ' ', text)
+          # Solo posts propios de FootParadiseArt
+          if "/FootParadiseArt/" not in link:
+              continue
 
-        img_url = ""
-        media = item.find("media:content", ns)
-        if media is not None:
-            img_url = media.get("url", "")
-        if not img_url:
-            enclosure = item.find("enclosure")
-            if enclosure is not None:
-                img_url = enclosure.get("url", "")
+          # Saltar retweets
+          title = item.findtext("title") or ""
+          if title.startswith("RT @"):
+              continue
 
-        # Saltar retweets y reposts de otras cuentas
-        if text.startswith("RT @"):
-            continue
-        if re.search(r'—\s*@\w+|—\s*\w+\s*\(@\w+\)', text):
-            continue
+          # Extraer tweet ID
+          id_match = re.search(r'/status/(\d+)', link)
+          if not id_match:
+              continue
+          tweet_id = id_match.group(1)
 
-        items.append({"id": tweet_id, "text": text, "img_url": img_url, "link": link})
+          # Convertir link de nitter a x.com
+          twitter_url = f"https://x.com/FootParadiseArt/status/{tweet_id}"
 
-    return items
+          # Extraer imagen del HTML de description
+          img_url = ""
+          description = item.findtext("description") or ""
+          img_match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', description)
+          if img_match:
+              nitter_img = img_match.group(1)
+              # Convertir https://nitter.net/pic/media%2FXXX.jpg → https://pbs.twimg.com/media/XXX.jpg
+              if "/pic/" in nitter_img:
+                  pic_path = nitter_img.split("/pic/")[-1]
+                  img_url = "https://pbs.twimg.com/" + unquote(pic_path)
+
+          items.append({"id": tweet_id, "text": title, "img_url": img_url, "link": twitter_url})
+
+      return items
 
 def load_updates():
     if UPDATES_FILE.exists():
