@@ -1,14 +1,14 @@
 {
-  "latestVersion": "1.3.0",
-  "releaseDate": "2025-03-28",
+  "latestVersion": "1.4.1",
+  "releaseDate": "2025-04-25",
   "showNotification": true,
   "message": {
     "en": "New update available! Go to Updates section to download the latest APK.",
     "es": "¡Nueva actualización disponible! Ve a la sección Actualizaciones para descargar el último APK."
   },
   "changelog": {
-    "en": "New comic, Bug fixes and performance improvements",
-    "es": "Nuevo Comic, Corrección de errores y mejoras de rendimiento"
+    "en": "New comic and Bug fixes",
+    "es": "Nuevo Comic y Corrección de errores"
   }
 
 }
