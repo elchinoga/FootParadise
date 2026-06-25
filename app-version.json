@@ -1,14 +1,14 @@
 {
-  "latestVersion": "1.5.0",
-  "releaseDate": "2026-05-22",
+  "latestVersion": "1.5.2",
+  "releaseDate": "2026-06-24",
   "showNotification": true,
   "message": {
     "en": "New update available! Go to Updates section to download the latest APK.",
     "es": "¡Nueva actualización disponible! Ve a la sección Actualizaciones para descargar el último APK."
   },
   "changelog": {
-    "en": "New comic and Bug fixes",
-    "es": "Nuevo Comic y Corrección de errores"
+    "en": "New comics and Bug fixes",
+    "es": "Nuevos Comics y Corrección de errores"
   }
 
 }
