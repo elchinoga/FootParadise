@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import time
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
@@ -11,13 +12,29 @@ UPDATES_FILE = Path("updates.json")
 IMAGES_DIR   = Path("imagenes")
 TWITTER_HANDLE = "FootParadiseArt"
 
-def fetch_url(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=20) as r:
-        raw = r.read()
-    raw = raw.decode("utf-8", errors="replace")
-    raw = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', raw)
-    return raw.encode("utf-8")
+REQUEST_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+def fetch_url(url, retries=3, backoff=5):
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            req = urllib.request.Request(url, headers=REQUEST_HEADERS)
+            with urllib.request.urlopen(req, timeout=20) as r:
+                raw = r.read()
+            raw = raw.decode("utf-8", errors="replace")
+            raw = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', raw)
+            return raw.encode("utf-8")
+        except urllib.error.HTTPError as e:
+            last_error = e
+            print(f"  Intento {attempt}/{retries} fallo ({e.code}): {e.reason}")
+            if attempt < retries:
+                time.sleep(backoff)
+    raise last_error
 
 def parse_rss(xml_bytes):
       from urllib.parse import unquote
@@ -92,7 +109,7 @@ def download_image(img_url, tweet_id):
     filename = f"{tweet_id}.{ext}"
     dest = IMAGES_DIR / filename
     try:
-        req = urllib.request.Request(img_url, headers={"User-Agent": "Mozilla/5.0"})
+        req = urllib.request.Request(img_url, headers=REQUEST_HEADERS)
         with urllib.request.urlopen(req, timeout=20) as r:
             dest.write_bytes(r.read())
         print(f"  Imagen: {dest}")
