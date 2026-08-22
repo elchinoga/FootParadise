@@ -114,7 +114,9 @@ def main():
     max_id = max((u["id"] for u in data["updates"]), default=0)
 
     added = 0
-    for item in items:
+    # items viene del mas nuevo al mas viejo; se procesa al reves para que,
+    # tras los sucesivos insert(0, ...), el mas nuevo quede primero en la lista.
+    for item in reversed(items):
         if item["id"] in known:
             continue
 
