@@ -1,87 +1,65 @@
 import json
 import os
-import re
-import time
+import subprocess
+import sys
+import tempfile
 import urllib.request
-import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-RSS_URL      = os.environ["RSS_URL"]
-UPDATES_FILE = Path("updates.json")
-IMAGES_DIR   = Path("imagenes")
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 TWITTER_HANDLE = "FootParadiseArt"
+TWITTER_COOKIES = os.environ["TWITTER_COOKIES"]
+UPDATES_FILE = Path("updates.json")
+IMAGES_DIR = Path("imagenes")
 
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-    "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8",
+    "Accept": "*/*",
     "Accept-Language": "en-US,en;q=0.9",
 }
 
-def fetch_url(url, retries=3, backoff=5):
-    last_error = None
-    for attempt in range(1, retries + 1):
-        try:
-            req = urllib.request.Request(url, headers=REQUEST_HEADERS)
-            with urllib.request.urlopen(req, timeout=20) as r:
-                raw = r.read()
-            raw = raw.decode("utf-8", errors="replace")
-            raw = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', raw)
-            return raw.encode("utf-8")
-        except urllib.error.HTTPError as e:
-            last_error = e
-            print(f"  Intento {attempt}/{retries} fallo ({e.code}): {e.reason}")
-            if attempt < retries:
-                time.sleep(backoff)
-    raise last_error
+def fetch_tweets(cookies_path, limit=30):
+    cmd = [
+        sys.executable, "-m", "gallery_dl",
+        "--dump-json",
+        "-o", f"cookies={cookies_path}",
+        "-o", "twitter.retweets=false",
+        "-o", "twitter.replies=false",
+        "-o", "twitter.quoted=false",
+        "-o", "twitter.text-tweets=true",
+        "--range", f"1-{limit}",
+        f"https://x.com/{TWITTER_HANDLE}/timeline",
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", timeout=180)
+    if result.returncode != 0:
+        raise RuntimeError(f"gallery-dl fallo (code {result.returncode}):\n{result.stderr[-3000:]}")
 
-def parse_rss(xml_bytes):
-      from urllib.parse import unquote
-      try:
-          root = ET.fromstring(xml_bytes)
-      except ET.ParseError:
-          text = xml_bytes.decode("utf-8", errors="replace")
-          text = re.sub(r'&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[\da-fA-F]+;)', '&amp;', text)
-          root = ET.fromstring(text.encode("utf-8"))
+    data = json.loads(result.stdout)
 
-      items = []
+    items = {}
+    for entry in data:
+        if entry[0] != 3:
+            continue
+        media_url, meta = entry[1], entry[2]
 
-      for item in root.findall(".//item"):
-          link = item.findtext("link") or ""
+        if meta.get("retweet_id") or meta.get("reply_id"):
+            continue
 
-          # Solo posts propios de FootParadiseArt
-          if "/FootParadiseArt/" not in link:
-              continue
+        tweet_id = str(meta.get("tweet_id", ""))
+        if not tweet_id or tweet_id in items:
+            continue  # solo la primera imagen por tweet
 
-          # Saltar retweets
-          title = item.findtext("title") or ""
-          if title.startswith("RT @"):
-              continue
+        items[tweet_id] = {
+            "id": tweet_id,
+            "text": meta.get("content", ""),
+            "img_url": media_url if isinstance(media_url, str) else "",
+            "link": f"https://x.com/{TWITTER_HANDLE}/status/{tweet_id}",
+        }
 
-          # Extraer tweet ID
-          id_match = re.search(r'/status/(\d+)', link)
-          if not id_match:
-              continue
-          tweet_id = id_match.group(1)
-
-          # Convertir link de nitter a x.com
-          twitter_url = f"https://x.com/FootParadiseArt/status/{tweet_id}"
-
-          # Extraer imagen del HTML de description
-          img_url = ""
-          description = item.findtext("description") or ""
-          img_match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', description)
-          if img_match:
-              nitter_img = img_match.group(1)
-              # Convertir https://nitter.net/pic/media%2FXXX.jpg → https://pbs.twimg.com/media/XXX.jpg
-              if "/pic/" in nitter_img:
-                  pic_path = nitter_img.split("/pic/")[-1]
-                  img_url = "https://pbs.twimg.com/" + unquote(pic_path)
-
-          items.append({"id": tweet_id, "text": title, "img_url": img_url, "link": twitter_url})
-
-      return items
+    return list(items.values())
 
 def load_updates():
     if UPDATES_FILE.exists():
@@ -119,9 +97,16 @@ def download_image(img_url, tweet_id):
         return ""
 
 def main():
-    print("Obteniendo RSS...")
-    xml_bytes = fetch_url(RSS_URL)
-    items = parse_rss(xml_bytes)
+    print("Obteniendo tweets via gallery-dl...")
+    with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8") as f:
+        f.write(TWITTER_COOKIES)
+        cookies_path = f.name
+
+    try:
+        items = fetch_tweets(cookies_path)
+    finally:
+        os.remove(cookies_path)
+
     print(f"Posts encontrados: {len(items)}")
 
     data = load_updates()

@@ -20,9 +20,12 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Instalar gallery-dl
+        run: pip install gallery-dl
+
       - name: Correr script
         env:
-          RSS_URL: ${{ secrets.RSS_URL }}
+          TWITTER_COOKIES: ${{ secrets.TWITTER_COOKIES }}
         run: python scripts/update_news.py
 
       - name: Commit y push (si hay cambios)
