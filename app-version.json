@@ -1,18 +1,13 @@
 {
-  "latestVersion": "1.5.4",
-  "releaseDate": "2026-08-27",
+  "latestVersion": "1.5.5",
+  "releaseDate": "2026-09-16",
   "showNotification": true,
   "message": {
     "en": "New update available! Go to Updates section to download the latest APK.",
     "es": "¡Nueva actualización disponible! Ve a la sección Actualizaciones para descargar el último APK."
   },
   "changelog": {
-    "en": "New comic",
-    "es": "Nuevo Comic"
+    "en": "New comic: Nagi's decision. New login screen — sign in to sync your comics.",
+    "es": "Nuevo comic: Nagi's decision. Nueva pantalla de login — inicia sesión para sincronizar tus comics."
   }
-
 }
-
-
-
-
