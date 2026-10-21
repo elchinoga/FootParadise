@@ -153,12 +153,15 @@ def video_cover(video_url, tweet_id):
                              f"fontsize={size}", "fontcolor=white", "borderw=4",
                              "bordercolor=black@0.7", "x=(w-tw)/2", f"y={y}"])
 
+        # 2:1 y todo en la parte de arriba: la tarjeta de la app corta la imagen a 250 px de
+        # alto en pantallas anchas, y el ticker de la web la recorta a un cuadrado del centro
         filters = ",".join([
-            "scale=1280:-2",
+            "scale=1280:640:force_original_aspect_ratio=increase",
+            "crop=1280:640",
             "drawbox=x=0:y=0:w=iw:h=ih:color=black@0.45:t=fill",
-            text("▶", "h/3", "(h-th)/2-h*0.08", "seguisym.ttf"),
-            text("VIDEO", "h/9", "h*0.66", "arialbd.ttf"),
-            text("Watch it on X  ·  Míralo en X", "h/18", "h*0.80", "arialbd.ttf"),
+            text("▶", "h/3.4", "h*0.06", "seguisym.ttf"),
+            text("VIDEO", "h/9", "h*0.39", "arialbd.ttf"),
+            text("Watch it on X  ·  Míralo en X", "h/18", "h*0.52", "arialbd.ttf"),
         ])
         # un cuadro de 1 s adentro (el primero suele ser negro); si el video es mas corto, el primero
         for start in ("1", "0"):
