@@ -13,6 +13,7 @@ TWITTER_HANDLE = "FootParadiseArt"
 TWITTER_COOKIES = os.environ["TWITTER_COOKIES"]
 UPDATES_FILE = Path("updates.json")
 IMAGES_DIR = Path("imagenes")
+ARG = timezone(timedelta(hours=-3))
 
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -39,6 +40,13 @@ def fetch_tweets(cookies_path, limit=30):
 
     data = json.loads(result.stdout)
 
+    # gallery-dl sale con codigo 0 aunque X lo rechace (cookies vencidas, login pedido):
+    # el error viene como entrada -1. Sin esto el workflow decia "Sin novedades" y quedaba
+    # en verde mientras las noticias dejaban de actualizarse.
+    errors = [entry[1] for entry in data if entry and entry[0] == -1]
+    if errors:
+        raise RuntimeError(f"gallery-dl no pudo leer la cuenta: {errors}\n{result.stderr[-3000:]}")
+
     items = {}
     for entry in data:
         if entry[0] != 3:
@@ -57,9 +65,18 @@ def fetch_tweets(cookies_path, limit=30):
             "text": meta.get("content", ""),
             "img_url": media_url if isinstance(media_url, str) else "",
             "link": f"https://x.com/{TWITTER_HANDLE}/status/{tweet_id}",
+            "date": tweet_date(meta.get("date")),
         }
 
     return list(items.values())
+
+def tweet_date(value):
+    # fecha del tweet en hora argentina (gallery-dl la da en UTC); si no viene, la de hoy
+    try:
+        utc = datetime.strptime(str(value), "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+    except ValueError:
+        utc = datetime.now(timezone.utc)
+    return utc.astimezone(ARG).strftime("%Y-%m-%d")
 
 def load_updates():
     if UPDATES_FILE.exists():
@@ -121,12 +138,11 @@ def main():
             continue
 
         max_id += 1
-        today = datetime.now(timezone(timedelta(hours=-3))).strftime("%Y-%m-%d")
         image_path = download_image(item["img_url"], item["id"])
 
         entry = {
             "id": max_id,
-            "date": today,
+            "date": item["date"],
             "title": item["text"][:60] + ("..." if len(item["text"]) > 60 else ""),
             "description": item["text"],
             "image": image_path,
@@ -143,7 +159,8 @@ def main():
 
     UPDATES_FILE.write_text(
         json.dumps(data, ensure_ascii=False, indent=2),
-        encoding="utf-8"
+        encoding="utf-8",
+        newline="\n",
     )
     print(f"✓ updates.json actualizado con {added} entrada(s).")
 
