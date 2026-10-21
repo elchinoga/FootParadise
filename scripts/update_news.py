@@ -57,13 +57,21 @@ def fetch_tweets(cookies_path, limit=30):
             continue
 
         tweet_id = str(meta.get("tweet_id", ""))
-        if not tweet_id or tweet_id in items:
-            continue  # solo la primera imagen por tweet
+        if not tweet_id:
+            continue
+
+        # solo fotos: un video o gif viene como .mp4 y la app no lo puede mostrar como imagen
+        is_photo = (isinstance(media_url, str) and media_url.startswith("http")
+                    and meta.get("type", "photo") == "photo")
+        if tweet_id in items:
+            if is_photo and not items[tweet_id]["img_url"]:
+                items[tweet_id]["img_url"] = media_url
+            continue  # solo la primera foto por tweet
 
         items[tweet_id] = {
             "id": tweet_id,
             "text": meta.get("content", ""),
-            "img_url": media_url if isinstance(media_url, str) else "",
+            "img_url": media_url if is_photo else "",
             "link": f"https://x.com/{TWITTER_HANDLE}/status/{tweet_id}",
             "date": tweet_date(meta.get("date")),
         }
