@@ -10,7 +10,9 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 TWITTER_HANDLE = "FootParadiseArt"
-TWITTER_COOKIES = os.environ["TWITTER_COOKIES"]
+# en GitHub vienen del secret; en la PC de Gus, del cookies.txt (TWITTER_COOKIES_FILE)
+TWITTER_COOKIES = (os.environ.get("TWITTER_COOKIES")
+                   or Path(os.environ["TWITTER_COOKIES_FILE"]).read_text(encoding="utf-8"))
 UPDATES_FILE = Path("updates.json")
 IMAGES_DIR = Path("imagenes")
 ARG = timezone(timedelta(hours=-3))
@@ -68,10 +70,12 @@ def fetch_tweets(cookies_path, limit=30):
                 items[tweet_id]["img_url"] = media_url
             continue  # solo la primera foto por tweet
 
+        is_video = isinstance(media_url, str) and meta.get("type") in ("video", "animated_gif")
         items[tweet_id] = {
             "id": tweet_id,
             "text": meta.get("content", ""),
             "img_url": media_url if is_photo else "",
+            "video_url": media_url if is_video else "",
             "link": f"https://x.com/{TWITTER_HANDLE}/status/{tweet_id}",
             "date": tweet_date(meta.get("date")),
         }
@@ -121,6 +125,53 @@ def download_image(img_url, tweet_id):
         print(f"  Sin imagen: {e}")
         return ""
 
+def ffmpeg_font(name):
+    # en Windows se le pasa la fuente; en otro sistema ffmpeg usa la que tenga por defecto
+    path = Path("C:/Windows/Fonts") / name
+    return [f"fontfile='{path.as_posix().replace(':', chr(92) + ':')}'"] if path.exists() else []
+
+def video_cover(video_url, tweet_id):
+    # La app y la web solo muestran imagenes: para un tweet con video se arma una tapa
+    # con un cuadro del video, un boton de play y el aviso de que se mira en X.
+    if not video_url:
+        return ""
+    IMAGES_DIR.mkdir(exist_ok=True)
+    filename = f"{tweet_id}.jpg"
+    dest = IMAGES_DIR / filename
+    with tempfile.TemporaryDirectory() as tmp:
+        video = Path(tmp) / "video.mp4"
+        try:
+            req = urllib.request.Request(video_url, headers=REQUEST_HEADERS)
+            with urllib.request.urlopen(req, timeout=60) as r:
+                video.write_bytes(r.read())
+        except Exception as e:
+            print(f"  Sin video: {e}")
+            return ""
+
+        def text(value, size, y, font):
+            return ":".join([f"drawtext=text='{value}'", *ffmpeg_font(font),
+                             f"fontsize={size}", "fontcolor=white", "borderw=4",
+                             "bordercolor=black@0.7", "x=(w-tw)/2", f"y={y}"])
+
+        filters = ",".join([
+            "scale=1280:-2",
+            "drawbox=x=0:y=0:w=iw:h=ih:color=black@0.45:t=fill",
+            text("▶", "h/3", "(h-th)/2-h*0.08", "seguisym.ttf"),
+            text("VIDEO", "h/9", "h*0.66", "arialbd.ttf"),
+            text("Watch it on X  ·  Míralo en X", "h/18", "h*0.80", "arialbd.ttf"),
+        ])
+        # un cuadro de 1 s adentro (el primero suele ser negro); si el video es mas corto, el primero
+        for start in ("1", "0"):
+            result = subprocess.run(
+                ["ffmpeg", "-y", "-loglevel", "error", "-ss", start, "-i", str(video),
+                 "-frames:v", "1", "-vf", filters, "-q:v", "3", str(dest)],
+                capture_output=True, text=True, encoding="utf-8", errors="replace")
+            if result.returncode == 0 and dest.exists() and dest.stat().st_size > 0:
+                print(f"  Tapa de video: {dest}")
+                return f"imagenes/{filename}"
+        print(f"  Sin tapa de video: {result.stderr[-500:]}")
+        return ""
+
 def main():
     print("Obteniendo tweets via gallery-dl...")
     with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8") as f:
@@ -146,7 +197,8 @@ def main():
             continue
 
         max_id += 1
-        image_path = download_image(item["img_url"], item["id"])
+        image_path = (download_image(item["img_url"], item["id"])
+                      or video_cover(item["video_url"], item["id"]))
 
         entry = {
             "id": max_id,

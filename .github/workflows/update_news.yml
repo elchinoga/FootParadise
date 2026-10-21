@@ -1,9 +1,10 @@
 name: Actualizar noticias desde Twitter
 
+# Desde 2026-10 X (Cloudflare) bloquea a los servidores de GitHub, asi que ya no corre solo:
+# la actualizacion diaria la hace una tarea programada en la PC de Gus
+# (F:\00_CLAUDE\Noticias_FootParadise). Queda para correrlo a mano si X lo vuelve a permitir.
 on:
-  schedule:
-    - cron: '0 22 * * *'   # 22:00 UTC = 19:00 Argentina (UTC-3)
-  workflow_dispatch:         # también lo podés correr a mano
+  workflow_dispatch:
 
 jobs:
   update:
