@@ -1,13 +1,13 @@
 {
-  "latestVersion": "1.5.6",
-  "releaseDate": "2026-10-22",
+  "latestVersion": "1.5.7",
+  "releaseDate": "2026-11-26",
   "showNotification": true,
   "message": {
     "en": "New update available! Go to Updates section to download the latest APK.",
     "es": "¡Nueva actualización disponible! Ve a la sección Actualizaciones para descargar el último APK."
   },
   "changelog": {
-    "en": "New comic: Before returning to the future. New login screen — sign in to sync your comics.",
-    "es": "Nuevo comic: Before returning to the future. Nueva pantalla de login — inicia sesión para sincronizar tus comics."
+    "en": "New comic: Goku's day on Earth.",
+    "es": "Nuevo comic: Goku's day on Earth."
   }
 }
